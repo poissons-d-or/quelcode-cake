@@ -263,13 +263,13 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'docker_db_user',
-            'password' => 'docker_db_user_pass',
-            'database' => 'docker_db',
+            'username' => 'root',
+            'password' => 'root',
+            'database' => 'mydata',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
              */
-            //'encoding' => 'utf8mb4',
+            'encoding' => 'utf8',
             'timezone' => 'Asia/Tokyo',
             'flags' => [],
             'cacheMetadata' => true,
