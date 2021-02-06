@@ -37,18 +37,18 @@ class PeopleController extends AppController
 
   public function add()
   {
+    $msg = 'please type your personal data...';
     $entity = $this->People->newEntity();
-    $this->set('entity', $entity);
-  }
-
-  public function create()
-  {
     if ($this->request->is('post')) {
       $data = $this->request->data['People'];
       $entity = $this->People->newEntity($data);
-      $this->People->save($entity);
+      if ($this->People->save($entity)) {
+        return $this->redirect(['action' => 'index']);
+      }
+      $msg = 'Error was occured...';
     }
-    return $this->redirect(['action' => 'index']);
+    $this->set('msg', $msg);
+    $this->set('entity', $entity);
   }
 
   public function delete()
