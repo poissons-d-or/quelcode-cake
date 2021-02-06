@@ -12,10 +12,12 @@ class PeopleTable extends Table
   public function initialize(array $config)
   {
     parent::initialize($config);
+    $this->setDisplayField('name');
+    $this->hasMany('Messages');
 
-    $this->setTable('people');
-    $this->setDisplayField('mail');
-    $this->setPrimaryKey('id');
+    // $this->setTable('people');
+    // $this->setDisplayField('mail');
+    // $this->setPrimaryKey('id');
   }
 
   public function findMe(Query $query, array $options)
