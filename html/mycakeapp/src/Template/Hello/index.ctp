@@ -1,66 +1,38 @@
-<p>This is sample content.</p>
-<p>これは、Helloレイアウトを利用したサンプルです。</p>
+<table>
+  <?= $this->Html->tableHeaders(
+    ["title", 'name', 'mail'],
+    ['style' => ['background:#006;color:white;']]
+  ) ?>
+  <?= $this->Html->tableCells(
+    [
+      ["this is sample", "taro", "taro@yamada"],
+      ["Hello!", "hanako", "hanako@flower"],
+      ["test,test.", "sachiko", "sachi@co.jp"],
+      ["last!", "jiro", "jiro@change"],
+    ],
+    ['style' => ['background:#ccf']],
+    ['style' => ['background:#dff']]
 
-<!-- <!DOCTYPE html>
-<html>
+  ) ?>
+</table>
 
-<head>
-  <title><?= $title ?></title>
-  <style>
-    h1 {
-      font-size: 48pt;
-      margin: 0 0 10px 0;
-      padding: 0 20px;
-      color: white;
-      background: linear-gradient(to right, #aaa, #fff);
-    }
+<ul>
+  <?= $this->Html->nestedList(
+    ['first line', 'second line', 'third line' => ['one', 'two', 'three']]
+  ) ?>
+</ul>
+<?= $this->Text->autoParagraph("one\ntwo\nthree") ?>
 
-    p {
-      font-size: 14pt;
-      color: #666;
-    }
-  </style>
-</head>
+<?= $this->Url->build([
+  'controller' => 'hello',
+  'action' => 'show',
+  '?' => ['id' => 'taro', 'password' => 'yamada123'],
+  '_ext' => 'png', 'sample'
+]) ?>
 
-<body>
-  <header class="row">
-    <h1><?= $title ?></h1>
-  </header>
-  <div class="row">
-    <pre><?php print_r($data); ?></pre>
-  </div>
-  <div class="row">
-    <table>
-      <?= $this->Form->create(
-        null,
-        [
-          'type' => 'post',
-          'url' => [
-            'controller' => 'Hello',
-            'action' => 'index'
-          ]
-        ]
-      ) ?>
-      <tr>
-        <th>name</th>
-        <td><?= $this->Form->text('Form1.name') ?></td>
-      </tr>
-      <tr>
-        <th>mail</th>
-        <td><?= $this->Form->text('Form1.mail') ?></td>
-      </tr>
-      <tr>
-        <th>age</th>
-        <td><?= $this->Form->text('Form1.age') ?></td>
-      </tr>
-      <tr>
-        <th></th>
-        <td><?= $this->Form->submit('送信') ?></td>
-      </tr>
-      <?= $this->Form->end() ?>
-    </table>
-  </div>
-</body>
+<?= $this->Text->autoLinkUrls('https://google.com') ?>
+<?= $this->Text->autoLinkEmails('ijies.imago@gmail.com') ?>
 
-</html>
-          -->
+<p>金額は、<?= $this->Number->currency(12345678, 'USD') ?>です。</p>
+<p>2桁で表すと、<?= $this->Number->precision(1234.56789, 2) ?>です。</p>
+<p>割合は、<?= $this->Number->toPercentage(0.12345, 2, ['multiply' => true]) ?>です。</p>
