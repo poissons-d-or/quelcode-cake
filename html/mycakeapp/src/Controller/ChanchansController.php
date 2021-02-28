@@ -54,4 +54,21 @@ class ChanchansController extends AppController //Chanchansモデルを扱うコ
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function delete()
+    {
+        $id = $this->request->query['id'];
+        $entity = $this->Chanchans->get($id);
+        $this->set('entity', $entity);
+    }
+
+    public function destroy()
+    {
+        if ($this->request->is('post')) {
+            $data = $this->request->data['Chanchans'];
+            $entity = $this->Chanchans->get($data['id']);
+            $this->Chanchans->delete($entity);
+        }
+        return $this->redirect(['action' => 'index']);
+    }
 }
