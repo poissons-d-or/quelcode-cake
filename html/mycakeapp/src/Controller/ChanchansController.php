@@ -15,15 +15,46 @@ class ChanchansController extends AppController //Chanchansモデルを扱うコ
 {
     public function index()
     {
-        //$id = $this->request->query['id'];
-        $data = $this->Chanchans->find('all'); //ChanchansTableクラスのインスタンスが「Chanchans」という名前のプロパティとして組み込まれる
-        //$data = $this->Chanchans->get($id);
+        if ($this->request->is('post')) {
+            $find = $this->request->data['Chanchans']['find'];
+            // $arr = explode(',', $find);
+            // $condition = [
+            // 'limit'=>3,
+            // 'page'=> $find
+            // 'conditions' => [
+            // 'or' => ['name like' => $find, 'mail like' => $find]
+            // ],
+            // 'order' => ['Chanchans.age' => 'desc']
+            // ];
+            $data = $this->Chanchans->find('me', ['me' => $find])
+                ->contain(['Hoyohoyos']);
+            // ->where(['age >= ' => $arr[0]])
+            // ->andWhere(['age <' => $arr[1]])
+            // ->order(['Chanchans.age' => 'asc'])
+            // ->order(['Chanchans.name' => 'asc'])
+            // ->limit(3)->page($find);
+        } else {
+            $data = $this->Chanchans->find('byAge')
+                ->contain(['Hoyohoyos']);
+            // ->order(['Chanchans.age' => 'asc'])
+            // ->order(['Chanchans.name' => 'desc']);
+        }
         $this->set('data', $data);
     }
 
     public function add()
     {
+        $msg = 'please type your personal data...';
         $entity = $this->Chanchans->newEntity();
+        if ($this->request->is('post')) {
+            $data = $this->request->data['Chanchans'];
+            $entity = $this->Chanchans->newEntity($data);
+            if ($this->Chanchans->save($entity)) {
+                return $this->redirect(['action' => 'index']);
+            }
+            $msg = 'Error was occured...';
+        }
+        $this->set('msg', $msg);
         $this->set('entity', $entity);
     }
 

@@ -30,10 +30,22 @@ class ChanchansTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
-        $this->setTable('chanchans');
         $this->setDisplayField('name');
-        $this->setPrimaryKey('id');
+        $this->hasMany('Hoyohoyos');
+    }
+
+
+    public function findMe(Query $query, array $options)
+    {
+        $me = $options['me'];
+        return $query->where(['name like' => '%' . $me . '%'])
+            ->orWhere(['mail like' => '%' . $me . '%'])
+            ->order(['age' => 'asc']);
+    }
+
+    public function findByAge(Query $query, array $options)
+    {
+        return $query->order(['age' => 'asc'])->order(['name' => 'asc']);
     }
 
     /**
@@ -45,25 +57,26 @@ class ChanchansTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
+            ->integer('id', 'idは整数で入力下さい')
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('name')
+            ->scalar('name', 'テキストを入力下さい。')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name', '名前は必ず記入して下さい。');
 
         $validator
-            ->scalar('mail')
+            ->scalar('mail', 'テキストを入力下さい。')
             ->maxLength('mail', 255)
-            ->requirePresence('mail', 'create')
-            ->notEmptyString('mail');
+            ->allowEmptyString('mail')
+            ->email('mail', false, 'メールアドレスを記入して下さい。');
 
         $validator
-            ->integer('age')
+            ->integer('age', '整数を入力下さい。')
             ->requirePresence('age', 'create')
-            ->notEmptyString('age');
+            ->notEmptyString('age', '必ず値を入力下さい。')
+            ->greaterThan('age', -1, 'ゼロ以上の値を記入下さい。');
 
         return $validator;
     }
