@@ -13,32 +13,45 @@ use App\Controller\AppController;
  */
 class ChanchansController extends AppController //Chanchansモデルを扱うコントローラー
 {
+    public $paginate = [
+        'finder' => 'byAge',
+        'limit' => 5,
+        'contain' => ['Hoyohoyos']
+    ];
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+    }
+
     public function index()
     {
-        if ($this->request->is('post')) {
+        /*    if ($this->request->is('post')) {
             $find = $this->request->data['Chanchans']['find'];
             // $arr = explode(',', $find);
             // $condition = [
-            // 'limit'=>3,
-            // 'page'=> $find
-            // 'conditions' => [
-            // 'or' => ['name like' => $find, 'mail like' => $find]
-            // ],
-            // 'order' => ['Chanchans.age' => 'desc']
-            // ];
-            $data = $this->Chanchans->find('me', ['me' => $find])
-                ->contain(['Hoyohoyos']);
-            // ->where(['age >= ' => $arr[0]])
-            // ->andWhere(['age <' => $arr[1]])
-            // ->order(['Chanchans.age' => 'asc'])
-            // ->order(['Chanchans.name' => 'asc'])
-            // ->limit(3)->page($find);
-        } else {
-            $data = $this->Chanchans->find('byAge')
-                ->contain(['Hoyohoyos']);
-            // ->order(['Chanchans.age' => 'asc'])
-            // ->order(['Chanchans.name' => 'desc']);
-        }
+                // 'limit'=>3,
+                // 'page'=> $find
+                // 'conditions' => [
+                    // 'or' => ['name like' => $find, 'mail like' => $find]
+                    // ],
+                    // 'order' => ['Chanchans.age' => 'desc']
+                    // ];
+                    $data = $this->Chanchans->find('me', ['me' => $find])
+                    ->contain(['Hoyohoyos']);
+                    // ->where(['age >= ' => $arr[0]])
+                    // ->andWhere(['age <' => $arr[1]])
+                    // ->order(['Chanchans.age' => 'asc'])
+                    // ->order(['Chanchans.name' => 'asc'])
+                    // ->limit(3)->page($find);
+                } else {
+                    $data = $this->Chanchans->find('byAge')
+                    ->contain(['Hoyohoyos']);
+                    // ->order(['Chanchans.age' => 'asc'])
+                    // ->order(['Chanchans.name' => 'desc']);
+                } */
+        $data = $this->paginate($this->Chanchans);
         $this->set('data', $data);
     }
 
