@@ -12,6 +12,7 @@
         <th scope="row">商品ID</th>
         <td><?= $this->Number->format($biditem->id) ?></td>
     </tr>
+    <!-- ここから課題で追加 -->
     <tr>
         <th scope="row">商品説明</th>
         <td><?= h($biditem->description) ?></td>
@@ -20,6 +21,7 @@
         <th scope="row">商品画像</th>
         <td><?= $this->Html->image($biditem->image, ['width' => 500]); ?></td>
     </tr>
+    <!-- ここまで課題で追加 -->
     <tr>
         <th scope="row">終了時間</th>
         <td><?= h($biditem->endtime) ?></td>
