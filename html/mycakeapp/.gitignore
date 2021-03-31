@@ -40,4 +40,4 @@ nbproject/*
 # Sass preprocessor
 .sass-cache/
 
-./webroot/img/biditems/*
+webroot/img/biditems/*
