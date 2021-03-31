@@ -98,7 +98,7 @@ class AuctionController extends AuctionBaseController
             $file = $this->request->getData('image'); //ファイルの取得
             $filePath = '../webroot/img/biditems/' . date('YmdHis') . $file['name']; //ファイル名の先頭に保存日時を付け、ファイルの保存パスを指定する
             move_uploaded_file($file['tmp_name'], $filePath);
-            $biditem['image'] = date('YmdHis') . $file['name']; // imageカラムにファイル名を保存
+            $biditem['image'] = 'biditems/' . date('YmdHis') . $file['name']; // imageカラムにファイル名を保存
             // ここまで課題で追加
 
             // $biditemを保存する
