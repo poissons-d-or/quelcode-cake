@@ -94,12 +94,12 @@ class AuctionController extends AuctionBaseController
             $biditem = $this->Biditems->patchEntity($biditem, $this->request->getData());
             // $this->log($this->request->data['image'], LOG_DEBUG);
 
-            //画像アップロードの処理
+            // 課題で追加  画像アップロードの処理
             $file = $this->request->getData('image'); //ファイルの取得
             $filePath = '../webroot/img/biditems/' . date('YmdHis') . $file['name']; //ファイル名の先頭に保存日時を付け、ファイルの保存パスを指定する
             move_uploaded_file($file['tmp_name'], $filePath);
-
             $biditem['image'] = date('YmdHis') . $file['name']; // imageカラムにファイル名を保存
+            // ここまで課題で追加
 
             // $biditemを保存する
             if ($this->Biditems->save($biditem)) {
