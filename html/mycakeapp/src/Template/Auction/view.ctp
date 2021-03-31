@@ -17,6 +17,10 @@
         <td><?= h($biditem->description) ?></td>
     </tr>
     <tr>
+        <th scope="row">商品画像</th>
+        <td><?= $this->Html->image($biditem->image, ['width' => 500]); ?></td>
+    </tr>
+    <tr>
         <th scope="row">終了時間</th>
         <td><?= h($biditem->endtime) ?></td>
     </tr>
