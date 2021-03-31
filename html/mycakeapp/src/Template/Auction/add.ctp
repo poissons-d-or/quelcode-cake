@@ -1,5 +1,8 @@
 <h2>商品を出品する</h2>
-<?= $this->Form->create($biditem, ['type' => 'file']) ?>
+
+<?= $this->Form->create($biditem, ['type' => 'file']) //['type'=>'file]を追加
+?>
+<pre><?php print_r($biditem['image']) ?></pre>
 <fieldset>
     <legend>※商品名、商品説明、終了日時を入力：</legend>
     <?php
@@ -7,7 +10,7 @@
     echo '<p><strong>USER: ' . $authuser['username'] . '</strong></p>';
     echo $this->Form->control('name');
     echo $this->Form->control('description', ['rows' => 5]);
-    echo $this->Form->control('image', ['type' => 'file']);
+    echo $this->Form->file('image');
     echo $this->Form->hidden('finished', ['value' => 0]);
     echo $this->Form->control('endtime');
     ?>
